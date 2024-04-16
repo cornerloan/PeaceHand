@@ -35,6 +35,8 @@ class Smiley extends Phaser.Scene {
         this.load.image("smileDimple", "face_c.png");
         // hands
         this.load.image("handOpen", "hand_yellow_open.png");
+        // peace hand
+        this.load.image("handPeace", "hand_yellow_peace.png");
 
         // update instruction text
         document.getElementById('description').innerHTML = '<h2>Smiley.js</h2>'
@@ -55,9 +57,13 @@ class Smiley extends Phaser.Scene {
         my.sprite.leftOpenHand.flipX = true;   // flip sprite to have thumb on correct side
         my.sprite.rightOpenHand = this.add.sprite(this.rightHandX, this.rightHandY, "handOpen");
 
+        //create the sprite for the right peace hand
+        my.sprite.rightPeaceHand = this.add.sprite(this.rightHandX, this.rightHandY, "handPeace");
+
         // Since sprites are visible when created and we only want one smile to be shown
         // at a time, make the "dimple" smile not visible to start.
         my.sprite.dimple.visible = false;
+        my.sprite.rightPeaceHand.visible = false;
     }
 
     update() {
@@ -74,12 +80,20 @@ class Smiley extends Phaser.Scene {
                     this.smileType = "Dimple";
                     my.sprite.smile.visible = false;
                     my.sprite.dimple.visible = true;
+
+                    //change the right hand
+                    my.sprite.rightOpenHand.visible = false;
+                    my.sprite.rightPeaceHand.visible = true;
                     break;
                 case "Dimple":
                     // Currently a dimple smile, so change to regular smile
                     this.smileType = "Smile";
                     my.sprite.dimple.visible = false;
                     my.sprite.smile.visible = true;
+
+                    //change the right hand
+                    my.sprite.rightPeaceHand.visible = false;
+                    my.sprite.rightOpenHand.visible = true;
                     break;
                 default:
                     console.log("Error: unknown smile");
